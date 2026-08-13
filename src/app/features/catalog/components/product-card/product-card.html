@@ -1,0 +1,60 @@
+<div class="group bg-white rounded-2xl border border-gray-100 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between">
+  
+  <div class="relative h-56 bg-gray-100 overflow-hidden">
+    <img 
+      [src]="product().image" 
+      [alt]="product().name" 
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    >
+    
+    <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-gray-800 text-xs font-semibold px-3 py-1 rounded-full shadow-xs">
+      {{ product().category }}
+    </span>
+
+    @if (product().stock > 0) {
+      <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+        Stock: {{ product().stock }}
+      </span>
+    } @else {
+      <span class="absolute top-3 right-3 bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+        Agotado
+      </span>
+    }
+  </div>
+
+  <div class="p-5 flex flex-col flex-grow justify-between">
+    
+    <div>
+      <h3 class="font-bold text-gray-900 text-base line-clamp-1 group-hover:text-indigo-600 transition-colors">
+        {{ product().name }}
+      </h3>
+
+      @if (product().description) {
+        <p class="text-gray-500 text-xs mt-1.5 line-clamp-2 leading-relaxed">
+          {{ product().description }}
+        </p>
+      }
+    </div>
+
+    <div class="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between gap-4">
+      <div>
+        <span class="text-[10px] text-gray-400 block uppercase font-medium tracking-wider">Precio</span>
+        <span class="text-xl font-black text-gray-900">\${{ product().price.toFixed(2) }}</span>
+      </div>
+
+      <button 
+        type="button"
+        (click)="onAdd()"
+        [disabled]="product().stock <= 0"
+        class="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition-all flex items-center gap-1.5 active:scale-95"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        Comprar
+      </button>
+    </div>
+
+  </div>
+
+</div>

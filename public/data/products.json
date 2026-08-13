@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop Gamer Pro",
+    "price": 1299.99,
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500",
+    "category": "Tecnología",
+    "stock": 10,
+    "description": "Laptop de alto rendimiento para gaming y desarrollo."
+  },
+  {
+    "id": 2,
+    "name": "Teclado Mecánico RGB",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+    "category": "Accesorios",
+    "stock": 25,
+    "description": "Teclado mecánico con iluminación RGB personalizable."
+  },
+  {
+    "id": 3,
+    "name": "Mouse Inalámbrico Ergonómico",
+    "price": 49.99,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
+    "category": "Accesorios",
+    "stock": 15,
+    "description": "Mouse ergonómico inalámbrico de alta precisión."
+  }
+]
