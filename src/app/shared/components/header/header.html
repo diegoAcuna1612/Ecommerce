@@ -1,1 +1,47 @@
-<p>header works!</p>
+<header class="sticky top-0 z-50 border-b border-line bg-app/80 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-6">
+
+    <a routerLink="/" class="flex items-center gap-2 shrink-0">
+      <span class="w-8 h-8 rounded-xl bg-accent flex items-center justify-center shadow-sm">
+        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </span>
+      <span class="text-lg font-extrabold tracking-tight text-ink">
+        Tech<span class="text-accent">Store</span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-1">
+      <a routerLink="/" class="px-3 py-2 text-sm font-medium text-muted rounded-full transition-colors hover:bg-surface-hover hover:text-ink">Inicio</a>
+      <a routerLink="/" class="px-3 py-2 text-sm font-medium text-muted rounded-full transition-colors hover:bg-surface-hover hover:text-ink">Catálogo</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="w-9 h-9 flex items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-hover hover:text-ink"
+        aria-label="Buscar"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"></path>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="relative w-9 h-9 flex items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-hover hover:text-ink"
+        aria-label="Carrito de compras"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+      </button>
+
+      <button type="button" class="btn-clean hidden sm:inline-flex px-4 py-2 text-xs">
+        Iniciar sesión
+      </button>
+    </div>
+
+  </div>
+</header>

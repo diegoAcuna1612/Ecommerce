@@ -1,7 +1,7 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="mb-8">
-        <h1 class="text-3xl font-extrabold text-gray-900">Catálogo de Productos</h1>
-        <p class="text-gray-500 text-sm mt-1">Explora nuestra selección exclusiva de tecnología y accesorios.</p>
+        <h1 class="text-3xl font-extrabold text-ink">Catálogo de Productos</h1>
+        <p class="text-muted text-sm mt-1">Explora nuestra selección exclusiva de tecnología y accesorios.</p>
       </div>
       
       @if (productService.products().length > 0) {
@@ -14,7 +14,7 @@
           }
         </div>
       } @else {
-        <div class="text-center py-12 text-gray-400">
+        <div class="text-center py-12 text-muted">
           <p>Cargando productos...</p>
         </div>
       }

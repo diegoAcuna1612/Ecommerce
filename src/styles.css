@@ -1,3 +1,127 @@
-/* You can add global styles to this file, and also import other style files */
+/* ========================================================
+   styles.css — Estilos globales "Monocromático Estricto"
+   Blanco y Negro / Minimalista Brutalista
+   E-commerce de moda o tecnología de alta gama
+   Angular + Tailwind CSS v4
+   ======================================================== */
 
-@import 'tailwindcss';
+/* --------------------------------------------------------
+   1. IMPORT DE FUENTE Y TAILWIND
+   -------------------------------------------------------- */
+/* Fuente principal: Inter. Va PRIMERO (la especificación
+   CSS exige que @import esté antes de cualquier otra regla). */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* Tailwind CSS v4 (directiva moderna, no requiere config) */
+@import "tailwindcss";
+
+/* --------------------------------------------------------
+   2. VARIABLES CSS — Paleta Monocromática Estricta
+   Únicamente blanco, negro y grises neutros.
+   Fuente única de verdad del tema.
+   -------------------------------------------------------- */
+:root {
+  --bg-app: #ffffff; /* Fondo blanco puro */
+  --bg-surface: #ffffff; /* Superficies elevadas (tarjetas, inputs) */
+  --bg-surface-hover: #f3f4f6; /* Hover gris muy claro (gray-100) */
+
+  --text-main: #000000; /* Negro absoluto */
+  --text-muted: #6b7280; /* Gris neutro para texto secundario (gray-500) */
+
+  --border-light: #e5e7eb; /* Bordes gris claro (gray-200) */
+
+  /* Sin acentos de color: el único acento es el contraste negro/blanco */
+}
+
+/* --------------------------------------------------------
+   3. TOKENS DE DISEÑO — @theme (Tailwind v4)
+   Puentea las variables a utilitarios:
+   bg-app | bg-surface | bg-surface-hover | text-ink |
+   text-muted | border-line | font-sans
+   -------------------------------------------------------- */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  --color-app: var(--bg-app);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface-hover);
+  --color-ink: var(--text-main);
+  --color-muted: var(--text-muted);
+  --color-line: var(--border-light);
+}
+
+/* --------------------------------------------------------
+   4. ESTILOS BASE
+   -------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+
+    /* Scrollbar minimalista (Firefox) */
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    /* Suavizado premium de fuentes (macOS/iOS) + nitidez en Windows */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco: negro puro, sin rastros de color. (Alternativa
+     brutalista suave: #f3f4f6 con texto negro.) */
+  :focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 2px;
+  }
+
+  /* Selección de texto: negro con texto blanco */
+  ::selection {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* ---- Scrollbar minimalista (WebKit / Chromium) ---- */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+  }
+}
+
+/* --------------------------------------------------------
+   5. COMPONENTES SEMÁNTICOS
+   -------------------------------------------------------- */
+@layer components {
+  /* Botón principal: bloque negro sólido, recto, en mayúsculas.
+     Sin bordes redondeados y sin sombras. */
+  .btn-clean {
+    @apply inline-flex items-center justify-center gap-2 rounded-none bg-ink px-6 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all duration-200 hover:bg-black active:scale-[0.98];
+  }
+
+  /* Botón secundario: bloque blanco con borde negro,
+     invierte los colores al hover. */
+  .btn-clean-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-ink bg-transparent px-6 py-3 text-sm font-bold uppercase tracking-widest text-ink transition-all duration-200 hover:bg-ink hover:text-white active:scale-[0.98];
+  }
+
+  /* Tarjeta: recta, borde gris claro que se vuelve negro sólido
+     al hover. Sin sombras y sin elevación. */
+  .card-clean {
+    @apply overflow-hidden rounded-none border border-line bg-surface transition-colors duration-300 hover:border-black;
+  }
+}
