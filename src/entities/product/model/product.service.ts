@@ -1,12 +1,11 @@
 import { inject, Service,signal } from '@angular/core';
-import { Product } from '../interfaces/product.interface';
+import { Product } from './product.interface';
 import { HttpClient } from '@angular/common/http';
 @Service()
 export class ProductService {
 
     private http = inject(HttpClient);
-    private jsonUrl='data/products.json';
-
+    private jsonUrl = 'data/products.json'
     private productsSignal = signal<Product[]>([])
     public products = this.productsSignal.asReadonly()
 
@@ -19,4 +18,6 @@ export class ProductService {
             error: (err) => console.error('Error al cargar el catálogo:', err)
         });
     }
+
+
 }

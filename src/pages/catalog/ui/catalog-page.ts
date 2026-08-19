@@ -1,7 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProductCard } from '../../components/product-card/product-card';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../../interfaces/product.interface';
+import { ProductCard , ProductService, Product} from '@entities/product';
 @Component({
   selector: 'app-catalog-page',
   imports: [ProductCard],

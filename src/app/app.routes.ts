@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { MainLayout } from './core/layouts/main-layout/main-layout';
+import { MainLayout } from '../widgets/main-layout/ui/main-layout';
 export const routes: Routes = [
     {
         path:'',
@@ -7,7 +7,7 @@ export const routes: Routes = [
         children:[
             {
                 path:'',
-                loadComponent:()=>import('./features/catalog/pages/catalog-page/catalog-page')
+                loadComponent:()=>import('../pages/catalog/ui/catalog-page')
                 .then(m=>m.CatalogPage)
             }
 
