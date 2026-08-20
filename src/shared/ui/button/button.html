@@ -1,0 +1,8 @@
+ <button 
+        type="button"
+        [disabled]="isDisabled()"
+        (click)="onClick.emit($event)"
+        class="btn-clean px-4 py-2.5 text-xs disabled:bg-gray-300 disabled:cursor-not-allowed"
+      >
+    {{title()}}
+</button>

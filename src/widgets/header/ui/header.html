@@ -38,9 +38,12 @@
         </svg>
       </button>
 
-      <button type="button" class="btn-clean hidden sm:inline-flex px-4 py-2 text-xs">
-        Iniciar sesión
-      </button>
+
+      <app-button
+        title="Iniciar sesión"
+        (onClick)="handleIniciarSesion($event)"
+      />
+      
     </div>
 
   </div>
