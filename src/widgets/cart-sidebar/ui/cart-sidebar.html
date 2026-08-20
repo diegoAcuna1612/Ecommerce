@@ -1,0 +1,49 @@
+@if (cartService.isSidebarOpen()) {
+  <div
+    class="fixed inset-0 bg-black/40 z-40 transition-opacity"
+    (click)="cartService.closeSidebar()">
+  </div>
+}
+
+<aside
+  class="fixed top-0 right-0 h-full w-80 bg-surface border-l border-line z-50 transform transition-transform duration-300 ease-in-out flex flex-col"
+  [class.translate-x-full]="!cartService.isSidebarOpen()"
+  [class.translate-x-0]="cartService.isSidebarOpen()"
+>
+  <div class="p-4 border-b border-line flex justify-between items-center">
+    <h2 class="text-lg font-bold text-ink">Mi Carrito ({{ cartService.totalItems() }})</h2>
+    <button
+      (click)="cartService.closeSidebar()"
+      class="text-muted hover:text-ink font-bold text-xl transition-colors"
+      aria-label="Cerrar carrito"
+    >
+      &times;
+    </button>
+  </div>
+
+  <div class="p-4 flex-grow overflow-y-auto flex flex-col gap-4">
+
+    @for (item of cartService.items(); track item.product.id) {
+      <div class="flex justify-between items-center border-b border-line pb-2">
+        <div>
+          <p class="font-medium text-sm text-ink">{{ item.product.name }}</p>
+          <p class="text-xs text-muted">Cant: {{ item.quantity }}</p>
+        </div>
+        <p class="font-bold text-sm text-ink">${{ item.product.price * item.quantity }}</p>
+      </div>
+    } @empty {
+      <p class="text-muted text-center mt-10">Tu carrito está vacío.</p>
+    }
+
+  </div>
+
+  <div class="p-4 border-t border-line bg-surface-hover">
+    <div class="flex justify-between mb-4 text-lg font-bold text-ink">
+      <span>Total:</span>
+      <span>${{ cartService.totalPrice() }}</span>
+    </div>
+    <button class="btn-clean w-full">
+      Proceder al pago
+    </button>
+  </div>
+</aside>

@@ -7,10 +7,9 @@
       @if (productService.products().length > 0) {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           @for (prod of productService.products(); track prod.id) {
-            <app-product-card 
-              [product]="prod" 
-              (addToCart)="handleAddToCart($event)" 
-            />
+            <app-product-card [product]="prod">
+              <app-add-to-cart [product]="prod" />
+            </app-product-card>
           }
         </div>
       } @else {

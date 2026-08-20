@@ -42,13 +42,11 @@
         <span class="text-xl font-black text-ink">\${{ product().price.toFixed(2) }}</span>
       </div>
 
-      <app-button
-        title="Comprar"
-        [isDisabled]="isOutOfStock()"
-        (onClick)="handleComprarClick($event)"
-      >
 
-      </app-button>
+      <div class="mt-auto">
+        <ng-content></ng-content>
+      </div>
+      
     </div>
 
   </div>
