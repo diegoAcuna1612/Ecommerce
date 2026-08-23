@@ -2,13 +2,13 @@
 
   <div class="relative h-56 bg-surface-hover overflow-hidden">
     <img 
-      [src]="product().image" 
-      [alt]="product().name" 
+      [src]="product().image_url" 
+      [alt]="product().title" 
       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
     >
     
     <span class="absolute top-3 left-3 bg-surface/90 backdrop-blur-xs text-ink text-xs font-semibold px-3 py-1 rounded-full shadow-xs">
-      {{ product().category }}
+      {{ product().category_id }}
     </span>
 
     @if (product().stock > 0) {
@@ -26,7 +26,7 @@
     
     <div>
       <h3 class="font-bold text-ink text-base line-clamp-1 group-hover:text-accent transition-colors">
-        {{ product().name }}
+        {{ product().title }}
       </h3>
 
       @if (product().description) {

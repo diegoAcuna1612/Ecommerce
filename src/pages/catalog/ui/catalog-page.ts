@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ProductCard } from '@entities/product';
-import { ProductService, Product} from '@shared/api'
+import { ProductService} from '@shared/api'
 import { AddToCartButton } from '@features/add-to-cart';
 @Component({
   selector: 'app-catalog-page',

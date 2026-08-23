@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { Product } from '@shared/api/models/product.interface';
 import { Button } from '@shared/ui';
-import { Cart,CartItem } from '@entities/cart';
+import { Cart } from '@entities/cart';
 @Component({
   selector: 'app-add-to-cart',
   imports: [Button],

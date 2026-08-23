@@ -3,20 +3,20 @@ import { Product } from '../models/product.interface';
 import { HttpClient } from '@angular/common/http';
 import { SUPABASE_CONFIG } from '../client';
 @Service()
-export class ProductService {
+export class CategoryService {
 
     private http = inject(HttpClient);
     private endPoint= SUPABASE_CONFIG.baseUrl
     private options= {headers: SUPABASE_CONFIG.header}
-    private productsSignal = signal<Product[]>([])
-    public products = this.productsSignal.asReadonly()
+    private categoriesSignal = signal<Product[]>([])
+    public category = this.categoriesSignal.asReadonly()
 
     constructor(){
-        this.getProducts()
+        this.getCategories()
     }
-    private getProducts() {
-        this.http.get<Product[]>(this.endPoint+'/products',this.options).subscribe({
-            next: (data) => this.productsSignal.set(data),
+    private getCategories() {
+        this.http.get<Product[]>(this.endPoint+'/categories',this.options).subscribe({
+            next: (data) => this.categoriesSignal.set(data),
             error: (err) => console.error('Error al cargar el catálogo:', err)
         });
     }
