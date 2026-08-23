@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from '@angular/core';
-import { Product } from '@shared/api/models/product.interface';
+import { Product } from '@shared/api';
 import { Button } from '@shared/ui';
-import { Cart } from '@entities/cart';
+import { CartService } from '@entities/cart';
 @Component({
   selector: 'app-add-to-cart',
   imports: [Button],
@@ -9,7 +9,7 @@ import { Cart } from '@entities/cart';
 })
 export class AddToCartButton {
   product = input.required<Product>();
-  private cartService=inject(Cart);
+  private cartService=inject(CartService);
 
   isOutOfStock = computed(() => this.product().stock <= 0);
 

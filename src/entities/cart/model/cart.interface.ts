@@ -1,6 +1,6 @@
 import { Product } from "@shared/api";
 
-export interface CartItem{
+export interface Cart{
     product: Product,
     quantity:number
 }

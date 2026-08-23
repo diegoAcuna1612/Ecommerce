@@ -1,11 +1,11 @@
 import { computed, Service, signal } from '@angular/core';
-import { CartItem } from './cart.interface';
+import { Cart} from './cart.interface';
 import { Product } from '@shared/api';
 
 @Service()
-export class Cart {
+export class CartService {
     isSidebarOpen = signal<boolean>(false)
-    private state =signal<CartItem[]>([])
+    private state =signal<Cart[]>([])
     public items = this.state.asReadonly()
 
     toggleSidebar(){

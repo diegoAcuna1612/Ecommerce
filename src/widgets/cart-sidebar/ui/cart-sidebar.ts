@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Cart } from '@entities/cart';
+import { CartService } from '@entities/cart';
+import { CartItem } from '@entities/cart';
 @Component({
   selector: 'app-cart-sidebar',
-  imports: [],
+  imports: [CartItem],
   templateUrl: './cart-sidebar.html',
 })
 export class CartSidebar {
-  cartService = inject(Cart)
-
-
+  cartService = inject(CartService)
 }

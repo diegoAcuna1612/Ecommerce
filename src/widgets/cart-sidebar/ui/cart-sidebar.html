@@ -23,14 +23,11 @@
 
   <div class="p-4 flex-grow overflow-y-auto flex flex-col gap-4">
 
-    @for (item of cartService.items(); track item.product.id) {
-      <div class="flex justify-between items-center border-b border-line pb-2">
-        <div>
-          <p class="font-medium text-sm text-ink">{{ item.product.title }}</p>
-          <p class="text-xs text-muted">Cant: {{ item.quantity }}</p>
-        </div>
-        <p class="font-bold text-sm text-ink">${{ item.product.price * item.quantity }}</p>
-      </div>
+   @for (item of cartService.items(); track item.product.id) {
+      <app-cart-item
+        [item]="item"
+      >
+      </app-cart-item>
     } @empty {
       <p class="text-muted text-center mt-10">Tu carrito está vacío.</p>
     }
