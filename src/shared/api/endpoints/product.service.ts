@@ -6,8 +6,9 @@ import { SUPABASE_CONFIG } from '../client';
 export class ProductService {
 
     private http = inject(HttpClient);
-    private endPoint= SUPABASE_CONFIG.baseUrl
+    private endPoint = `${SUPABASE_CONFIG.baseUrl}/products`;
     private options= {headers: SUPABASE_CONFIG.header}
+    
     private productsSignal = signal<Product[]>([])
     public products = this.productsSignal.asReadonly()
 
@@ -15,7 +16,8 @@ export class ProductService {
         this.getProducts()
     }
     private getProducts() {
-        this.http.get<Product[]>(this.endPoint+'/products',this.options).subscribe({
+        const queryUrl = `${this.endPoint}?select=*,categories(name,slug)`;
+        this.http.get<Product[]>(queryUrl,this.options).subscribe({
             next: (data) => this.productsSignal.set(data),
             error: (err) => console.error('Error al cargar el catálogo:', err)
         });
