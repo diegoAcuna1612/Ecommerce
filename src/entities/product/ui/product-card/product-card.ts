@@ -1,4 +1,4 @@
-import { Component,input } from '@angular/core';
+import { Component,input, output } from '@angular/core';
 import { Product } from '@shared/api';
 @Component({
   selector: 'app-product-card',
@@ -7,5 +7,9 @@ import { Product } from '@shared/api';
 })
 export class ProductCard {
   product = input.required<Product>();
+  productClick = output<Product>();
+  onClick(){
+    this.productClick.emit(this.product())
+  }
 
 }

@@ -13,7 +13,8 @@ export class AddToCartButton {
 
   isOutOfStock = computed(() => this.product().stock <= 0);
 
-  addToCart() {
+  addToCart(event:MouseEvent) {
+    event.stopPropagation();
     this.cartService.addProduct(this.product())
   }
 }
