@@ -36,4 +36,8 @@ export class CartService {
         console.log(this.state())
 
     }
+
+    clearCart() {
+        this.state.set([]);
+    }
 }

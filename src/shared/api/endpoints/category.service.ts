@@ -7,7 +7,6 @@ export class CategoryService {
 
     private http = inject(HttpClient);
     private endPoint= SUPABASE_CONFIG.baseUrl
-    private options= {headers: SUPABASE_CONFIG.header}
     private categoriesSignal = signal<Product[]>([])
     public category = this.categoriesSignal.asReadonly()
 
@@ -15,7 +14,7 @@ export class CategoryService {
         this.getCategories()
     }
     private getCategories() {
-        this.http.get<Product[]>(this.endPoint+'/categories',this.options).subscribe({
+        this.http.get<Product[]>(this.endPoint+'/categories').subscribe({
             next: (data) => this.categoriesSignal.set(data),
             error: (err) => console.error('Error al cargar el catálogo:', err)
         });

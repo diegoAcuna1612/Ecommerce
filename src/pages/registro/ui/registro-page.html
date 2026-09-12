@@ -1,0 +1,84 @@
+<div class="max-w-md mx-auto px-4 py-16">
+  <div class="mb-8 text-center">
+    <h1 class="text-3xl font-extrabold text-ink">Crear cuenta</h1>
+    <p class="text-muted text-sm mt-1">Regístrate y empieza a comprar en TechStore.</p>
+  </div>
+
+  <form
+    [formGroup]="registroForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-surface border border-line rounded-2xl p-6 space-y-4 shadow-sm"
+  >
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5" for="nombre">Nombre</label>
+      <input
+        id="nombre"
+        formControlName="nombre"
+        type="text"
+        placeholder="Tu nombre"
+        class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+      />
+      @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+        <span class="block text-xs text-red-500 mt-1">El nombre es obligatorio</span>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5" for="email">Correo</label>
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        placeholder="correo@ejemplo.com"
+        class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+      />
+      @if (registroForm.get('email')?.invalid && registroForm.get('email')?.touched) {
+        <span class="block text-xs text-red-500 mt-1">Ingresa un correo válido</span>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5" for="password">Contraseña</label>
+      <input
+        id="password"
+        formControlName="password"
+        type="password"
+        placeholder="Mínimo 6 caracteres"
+        class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+      />
+      @if (registroForm.get('password')?.invalid && registroForm.get('password')?.touched) {
+        <span class="block text-xs text-red-500 mt-1">Mínimo 6 caracteres</span>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5" for="confirmarPassword">Confirmar contraseña</label>
+      <input
+        id="confirmarPassword"
+        formControlName="confirmarPassword"
+        type="password"
+        placeholder="Repite tu contraseña"
+        class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+      />
+      @if (
+        registroForm.hasError('passwordsNoCoinciden') &&
+        registroForm.get('confirmarPassword')?.touched
+      ) {
+        <span class="block text-xs text-red-500 mt-1">Las contraseñas no coinciden</span>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="registroForm.invalid"
+      class="w-full px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-semibold transition-colors hover:opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed"
+    >
+      Registrarme
+    </button>
+
+    <p class="text-center text-sm text-muted">
+      ¿Ya tienes cuenta?
+      <a routerLink="/login" class="text-accent font-semibold hover:underline">Inicia sesión</a>
+    </p>
+  </form>
+</div>

@@ -8,3 +8,4 @@ export * from './models/category.interface';
 
 
 export * from './client'
+export * from './interceptors/api-key.interceptor'
