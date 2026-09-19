@@ -1,21 +1,75 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-extrabold text-ink">Catálogo de Productos</h1>
-        <p class="text-muted text-sm mt-1">Explora nuestra selección exclusiva de tecnología y accesorios.</p>
-      </div>
-      
-      @if (productService.products().length > 0) {
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          @for (prod of productService.products(); track prod.id) {
-            <app-product-card [product]="prod" (productClick)="navigateToProduct($event)">
-              <app-add-to-cart [product]="prod" />
-            </app-product-card>
-          }
-        </div>
-      } @else {
-        <div class="text-center py-12 text-muted">
-          <p>Cargando catálogo de productos...</p>
-        </div>
-      }
+  <div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-ink">Catálogo de Productos</h1>
+    <p class="text-muted text-sm mt-1">Explora nuestra selección exclusiva de tecnología y accesorios.</p>
+  </div>
 
+  <div class="mb-8 flex flex-col sm:flex-row gap-4">
+    <input
+      type="search"
+      placeholder="Buscar productos..."
+      [value]="textoBusqueda()"
+      (input)="onTextoChange($any($event.target).value)"
+      class="w-full sm:flex-1 border border-line bg-surface px-4 py-3 text-sm text-ink placeholder:text-muted focus:border-black focus:outline-none"
+    />
+
+    <select
+      [value]="categoria()"
+      (change)="onCategoriaChange($any($event.target).value)"
+      class="w-full sm:w-64 border border-line bg-surface px-4 py-3 text-sm text-ink focus:border-black focus:outline-none"
+    >
+      <option value="">Todas las categorías</option>
+      @for (cat of categoryService.category(); track cat.id) {
+        <option [value]="cat.id">{{ cat.name }}</option>
+      }
+    </select>
+  </div>
+
+  @if (cargando()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <app-product-card-skeleton />
+      }
     </div>
+  } @else if (resultados().length === 0) {
+    <div class="text-center py-16 text-muted">
+      <p class="text-lg font-semibold text-ink">Sin resultados</p>
+      <p class="text-sm mt-1">Prueba con otro término de búsqueda o cambia de categoría.</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      @for (prod of resultados(); track prod.id) {
+        <app-product-card [product]="prod" (productClick)="navigateToProduct($event)">
+          <app-add-to-cart [product]="prod" />
+        </app-product-card>
+      }
+    </div>
+  }
+
+  @if (!cargando() && resultados().length > 0) {
+    <div class="mt-10 flex items-center justify-center gap-6">
+      <button
+        type="button"
+        class="btn-clean-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+        [disabled]="paginaActual() === 1"
+        (click)="paginaAnterior()"
+      >
+        Anterior
+      </button>
+
+      <span class="text-sm font-medium text-muted">
+        Página {{ paginaActual() }} de {{ totalPaginas() }}
+      </span>
+
+      <button
+        type="button"
+        class="btn-clean-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+        [disabled]="paginaActual() >= totalPaginas()"
+        (click)="siguientePagina()"
+      >
+        Siguiente
+      </button>
+    </div>
+  }
+
+</div>
