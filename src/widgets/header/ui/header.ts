@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Button } from '@shared/ui';
 import { CartService } from '@entities/cart';
-import { AuthService } from '@entities/auth';
+import { AuthService } from '@shared/auth';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',

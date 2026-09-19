@@ -9,7 +9,6 @@ export class CartService {
     public items = this.state.asReadonly()
 
     toggleSidebar(){
-        console.log('llego al toggle')
         this.isSidebarOpen.update((v) => !v);
     }
 
@@ -33,8 +32,6 @@ export class CartService {
             }
         return [...currentItems, { product, quantity: 1 }];
         });
-        console.log(this.state())
-
     }
 
     clearCart() {

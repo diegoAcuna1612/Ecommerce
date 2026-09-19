@@ -8,7 +8,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '@entities/auth';
+import { AuthService } from '@shared/auth';
 
 function passwordsIguales(): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {

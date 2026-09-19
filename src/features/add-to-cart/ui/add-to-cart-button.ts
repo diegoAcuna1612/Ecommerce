@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { Product } from '@shared/api';
 import { Button } from '@shared/ui';
 import { CartService } from '@entities/cart';
