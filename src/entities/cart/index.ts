@@ -1,3 +1,5 @@
 export * from './model/cart.interface'
 export * from './model/cart.service'
+export * from './model/cart.storage'
 export * from './ui/cart-item/cart-item'
+export * from './ui/quantity-selector/quantity-selector'

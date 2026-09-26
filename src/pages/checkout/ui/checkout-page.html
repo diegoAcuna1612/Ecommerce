@@ -7,73 +7,221 @@
   <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
     <form
       [formGroup]="checkoutForm"
-      (ngSubmit)="confirmarPedido()"
-      class="lg:col-span-3 bg-surface border border-line rounded-2xl p-6 space-y-4 shadow-sm h-fit"
+      (ngSubmit)="guardar()"
+      class="lg:col-span-3 bg-surface border border-line rounded-2xl p-6 space-y-6 shadow-sm h-fit"
     >
-      <div>
-        <label class="block text-sm font-medium text-ink mb-1.5" for="nombreCompleto">Nombre completo</label>
-        <input
-          id="nombreCompleto"
-          formControlName="nombreCompleto"
-          type="text"
-          placeholder="Juan Pérez"
-          class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-        @if (nombreCompleto?.invalid && nombreCompleto?.touched) {
-          <span class="block text-xs text-red-500 mt-1">El nombre es obligatorio</span>
-        }
-      </div>
+      <fieldset formGroupName="contacto" class="space-y-4">
+        <legend class="text-sm font-bold text-ink">Contacto</legend>
 
-      <div>
-        <label class="block text-sm font-medium text-ink mb-1.5" for="direccion">Dirección de envío</label>
-        <input
-          id="direccion"
-          formControlName="direccion"
-          type="text"
-          placeholder="Av. Principal 123"
-          class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-        @if (direccion?.invalid && direccion?.touched) {
-          <span class="block text-xs text-red-500 mt-1">La dirección es obligatoria</span>
-        }
-      </div>
+        <div>
+          <label class="block text-sm font-medium text-ink mb-1.5" for="nombre">Nombre completo</label>
+          <input
+            id="nombre"
+            formControlName="nombre"
+            type="text"
+            placeholder="Juan Pérez"
+            class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+          @if (nombre.invalid && nombre.touched) {
+            <span class="block text-xs text-red-500 mt-1">El nombre es obligatorio</span>
+          }
+        </div>
 
-      <div>
-        <label class="block text-sm font-medium text-ink mb-1.5" for="numeroTarjeta">Número de tarjeta</label>
-        <input
-          id="numeroTarjeta"
-          formControlName="numeroTarjeta"
-          type="text"
-          inputmode="numeric"
-          placeholder="0000 0000 0000 0000"
-          class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-        @if (numeroTarjeta?.invalid && numeroTarjeta?.touched) {
-          <span class="block text-xs text-red-500 mt-1">Debe tener 16 dígitos</span>
-        }
-      </div>
+        <div>
+          <label class="block text-sm font-medium text-ink mb-1.5" for="email">Correo electrónico</label>
+          <input
+            id="email"
+            formControlName="email"
+            type="email"
+            placeholder="juan@correo.com"
+            class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+          @if (email.invalid && email.touched) {
+            <span class="block text-xs text-red-500 mt-1">Ingresa un correo válido</span>
+          }
+        </div>
+      </fieldset>
 
-      <div>
-        <label class="block text-sm font-medium text-ink mb-1.5" for="cvv">CVV</label>
-        <input
-          id="cvv"
-          formControlName="cvv"
-          type="text"
-          inputmode="numeric"
-          placeholder="123"
-          class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-        @if (cvv?.invalid && cvv?.touched) {
-          <span class="block text-xs text-red-500 mt-1">Debe tener 3 dígitos</span>
+      <fieldset formGroupName="envio" class="space-y-4">
+        <legend class="text-sm font-bold text-ink">Entrega</legend>
+
+        <div class="flex gap-2">
+          <label
+            class="flex-1 px-3 py-2 rounded-xl border text-sm font-medium text-center cursor-pointer transition-colors"
+            [class.border-accent]="esEnvioDomicilio"
+            [class.text-accent]="esEnvioDomicilio"
+            [class.border-line]="!esEnvioDomicilio"
+            [class.text-muted]="!esEnvioDomicilio"
+          >
+            <input type="radio" formControlName="tipo" value="casa" class="sr-only" />
+            Envío a domicilio
+          </label>
+          <label
+            class="flex-1 px-3 py-2 rounded-xl border text-sm font-medium text-center cursor-pointer transition-colors"
+            [class.border-accent]="!esEnvioDomicilio"
+            [class.text-accent]="!esEnvioDomicilio"
+            [class.border-line]="esEnvioDomicilio"
+            [class.text-muted]="esEnvioDomicilio"
+          >
+            <input type="radio" formControlName="tipo" value="recojo" class="sr-only" />
+            Recojo en tienda
+          </label>
+        </div>
+
+        @if (esEnvioDomicilio) {
+          <div>
+            <label class="block text-sm font-medium text-ink mb-1.5" for="direccion">Dirección de envío</label>
+            <input
+              id="direccion"
+              formControlName="direccion"
+              type="text"
+              placeholder="Av. Principal 123"
+              class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            @if (direccion.invalid && direccion.touched) {
+              <span class="block text-xs text-red-500 mt-1">La dirección es obligatoria</span>
+            }
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink mb-1.5" for="ciudad">Ciudad</label>
+            <input
+              id="ciudad"
+              formControlName="ciudad"
+              type="text"
+              placeholder="Lima"
+              class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            @if (ciudad.invalid && ciudad.touched) {
+              <span class="block text-xs text-red-500 mt-1">La ciudad es obligatoria</span>
+            }
+          </div>
+        } @else {
+          <p class="text-xs text-muted">Te avisaremos por correo cuando tu pedido esté listo para recoger.</p>
         }
-      </div>
+      </fieldset>
+
+      <fieldset formGroupName="pago" class="space-y-4">
+        <legend class="text-sm font-bold text-ink">Pago</legend>
+
+        <div class="flex gap-2">
+          <label
+            class="flex-1 px-3 py-2 rounded-xl border text-sm font-medium text-center cursor-pointer transition-colors"
+            [class.border-accent]="esPagoConTarjeta"
+            [class.text-accent]="esPagoConTarjeta"
+            [class.border-line]="!esPagoConTarjeta"
+            [class.text-muted]="!esPagoConTarjeta"
+          >
+            <input type="radio" formControlName="metodo" value="tarjeta" class="sr-only" />
+            Tarjeta
+          </label>
+          <label
+            class="flex-1 px-3 py-2 rounded-xl border text-sm font-medium text-center cursor-pointer transition-colors"
+            [class.border-accent]="!esPagoConTarjeta"
+            [class.text-accent]="!esPagoConTarjeta"
+            [class.border-line]="esPagoConTarjeta"
+            [class.text-muted]="esPagoConTarjeta"
+          >
+            <input type="radio" formControlName="metodo" value="contraentrega" class="sr-only" />
+            Contra entrega
+          </label>
+        </div>
+
+        @if (esPagoConTarjeta) {
+          <div>
+            <label class="block text-sm font-medium text-ink mb-1.5" for="titular">Titular de la tarjeta</label>
+            <input
+              id="titular"
+              formControlName="titular"
+              type="text"
+              placeholder="Juan Pérez"
+              class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            @if (titular.invalid && titular.touched) {
+              <span class="block text-xs text-red-500 mt-1">El titular es obligatorio</span>
+            }
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink mb-1.5" for="numeroTarjeta">Número de tarjeta</label>
+            <input
+              id="numeroTarjeta"
+              formControlName="numeroTarjeta"
+              type="text"
+              inputmode="numeric"
+              placeholder="0000 0000 0000 0000"
+              class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            @if (numeroTarjeta.invalid && numeroTarjeta.touched) {
+              <span class="block text-xs text-red-500 mt-1">Debe tener 16 dígitos</span>
+            }
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-ink mb-1.5" for="vencimiento">Vencimiento</label>
+              <input
+                id="vencimiento"
+                formControlName="vencimiento"
+                type="text"
+                placeholder="MM/AA"
+                class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              @if (vencimiento.invalid && vencimiento.touched) {
+                <span class="block text-xs text-red-500 mt-1">Fecha futura en formato MM/AA</span>
+              }
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-ink mb-1.5" for="cvv">CVV</label>
+              <input
+                id="cvv"
+                formControlName="cvv"
+                type="text"
+                inputmode="numeric"
+                placeholder="123"
+                class="w-full px-4 py-2.5 rounded-xl border border-line bg-app text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              @if (cvv.invalid && cvv.touched) {
+                <span class="block text-xs text-red-500 mt-1">Debe tener 3 dígitos</span>
+              }
+            </div>
+          </div>
+        } @else {
+          <p class="text-xs text-muted">Pagarás en efectivo al recibir tu pedido.</p>
+        }
+      </fieldset>
+
+      @if (checkoutForm.errors?.['titularDistinto'] && checkoutForm.touched) {
+        <p class="text-xs text-red-500">El titular de la tarjeta debe coincidir con el nombre de contacto.</p>
+      }
+      @if (checkoutForm.errors?.['sinStock']) {
+        <p class="text-xs text-red-500">Alguna unidad ya no tiene stock suficiente. Ajusta tu carrito.</p>
+      }
+      @if (checkoutForm.errors?.['carritoVacio']) {
+        <p class="text-xs text-amber-600">Tu carrito está vacío.</p>
+      }
+
+      @if (verificandoStock()) {
+        <p class="text-xs text-muted">Verificando stock…</p>
+      }
+      @if (estado() === 'error') {
+        <p class="text-xs text-red-500">No pudimos registrar tu pedido. Revisa tu conexión e inténtalo de nuevo.</p>
+      }
+      @if (exito()) {
+        <p class="text-xs text-emerald-600">¡Pedido registrado con éxito!</p>
+      }
 
       <button
         type="submit"
-        [disabled]="checkoutForm.invalid"
+        [disabled]="!puedeEnviar()"
         class="w-full px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-semibold transition-colors hover:opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed"
       >
-        Confirmar pedido
+        @if (estado() === 'enviando') {
+          Procesando…
+        } @else {
+          Confirmar pedido
+        }
       </button>
     </form>
 
@@ -88,15 +236,25 @@
                 {{ item.product.title }} <span class="text-muted">x{{ item.quantity }}</span>
               </span>
               <span class="text-ink font-semibold shrink-0">
-                S/ {{ item.product.price * item.quantity }}
+                S/ {{ (item.product.price * item.quantity).toFixed(2) }}
               </span>
             </li>
           }
         </ul>
 
-        <div class="border-t border-line pt-4 flex items-center justify-between">
-          <span class="text-sm font-medium text-ink">Total</span>
-          <span class="text-xl font-extrabold text-accent">S/ {{ cartService.totalPrice() }}</span>
+        <div class="border-t border-line pt-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-muted">Subtotal</span>
+            <span class="text-ink font-medium">S/ {{ cartService.subtotal().toFixed(2) }}</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-muted">IGV (18%)</span>
+            <span class="text-ink font-medium">S/ {{ cartService.igv().toFixed(2) }}</span>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-line">
+            <span class="text-sm font-medium text-ink">Total</span>
+            <span class="text-xl font-extrabold text-accent">{{ cartService.totalFormateado() }}</span>
+          </div>
         </div>
       } @else {
         <p class="text-sm text-muted">Tu carrito está vacío.</p>

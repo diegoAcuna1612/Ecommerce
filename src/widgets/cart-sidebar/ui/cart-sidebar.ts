@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '@entities/cart';
 import { CartItem } from '@entities/cart';
 @Component({
@@ -8,4 +9,10 @@ import { CartItem } from '@entities/cart';
 })
 export class CartSidebar {
   cartService = inject(CartService)
+  private router = inject(Router)
+
+  irAlCheckout() {
+    this.cartService.closeSidebar();
+    this.router.navigate(['/checkout']);
+  }
 }

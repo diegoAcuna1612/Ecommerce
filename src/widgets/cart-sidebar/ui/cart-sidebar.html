@@ -37,9 +37,9 @@
   <div class="p-4 border-t border-line bg-surface-hover">
     <div class="flex justify-between mb-4 text-lg font-bold text-ink">
       <span>Total:</span>
-      <span>${{ cartService.totalPrice() }}</span>
+      <span>{{ cartService.totalFormateado() }}</span>
     </div>
-    <button class="btn-clean w-full">
+    <button class="btn-clean w-full" (click)="irAlCheckout()">
       Proceder al pago
     </button>
   </div>

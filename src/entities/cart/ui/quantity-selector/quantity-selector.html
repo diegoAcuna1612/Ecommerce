@@ -1,0 +1,23 @@
+<div class="inline-flex items-center gap-2" [class.opacity-50]="bloqueado()">
+  <button
+    type="button"
+    (click)="decrementar()"
+    [disabled]="bloqueado() || cantidad() <= min()"
+    class="w-7 h-7 flex items-center justify-center rounded-md border border-line text-ink text-sm font-bold transition-colors hover:bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed"
+    aria-label="Quitar una unidad"
+  >
+    &minus;
+  </button>
+
+  <span class="text-sm text-ink w-8 text-center tabular-nums">{{ cantidad() }}</span>
+
+  <button
+    type="button"
+    (click)="incrementar()"
+    [disabled]="bloqueado() || cantidad() >= max()"
+    class="w-7 h-7 flex items-center justify-center rounded-md border border-line text-ink text-sm font-bold transition-colors hover:bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed"
+    aria-label="Agregar una unidad"
+  >
+    +
+  </button>
+</div>

@@ -1,22 +1,8 @@
 import { Component, inject } from '@angular/core';
-import {
-    AbstractControl,
-    FormBuilder,
-    ReactiveFormsModule,
-    ValidationErrors,
-    ValidatorFn,
-    Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@shared/auth';
-
-function passwordsIguales(): ValidatorFn {
-    return (group: AbstractControl): ValidationErrors | null => {
-        const password = group.get('password')?.value;
-        const confirmar = group.get('confirmarPassword')?.value;
-        return password === confirmar ? null : { passwordsNoCoinciden: true };
-    };
-}
+import { passwordsIguales } from '@shared/forms';
 
 @Component({
     selector: 'app-registro-page',
@@ -25,7 +11,7 @@ function passwordsIguales(): ValidatorFn {
 })
 export class RegistroPage {
     private fb = inject(FormBuilder);
-    private auth = inject(AuthService);
+    auth = inject(AuthService);
     private router = inject(Router);
 
     registroForm = this.fb.group(
@@ -44,11 +30,11 @@ export class RegistroPage {
             return;
         }
 
-        this.auth.login({
-            nombre: this.registroForm.value.nombre!,
-            email: this.registroForm.value.email!,
-        });
+        const { nombre, email, password } = this.registroForm.getRawValue();
 
-        this.router.navigate(['/']);
+        this.auth.registro(nombre!, email!, password!).subscribe({
+            next: () => this.router.navigate(['/']),
+            error: () => undefined, // el mensaje se muestra desde auth.error()
+        });
     }
 }

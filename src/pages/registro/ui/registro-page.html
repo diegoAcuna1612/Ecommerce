@@ -68,12 +68,16 @@
       }
     </div>
 
+    @if (auth.error()) {
+      <p class="text-xs text-red-500 text-center">{{ auth.error() }}</p>
+    }
+
     <button
       type="submit"
-      [disabled]="registroForm.invalid"
+      [disabled]="registroForm.invalid || auth.cargando()"
       class="w-full px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-semibold transition-colors hover:opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed"
     >
-      Registrarme
+      {{ auth.cargando() ? 'Creando cuenta…' : 'Registrarme' }}
     </button>
 
     <p class="text-center text-sm text-muted">

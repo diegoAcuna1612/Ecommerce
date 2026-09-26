@@ -10,7 +10,7 @@ import { AuthService } from '@shared/auth';
 })
 export class LoginPage {
     private fb = inject(FormBuilder);
-    private auth = inject(AuthService);
+    auth = inject(AuthService);
     private router = inject(Router);
 
     loginForm = this.fb.group({
@@ -24,11 +24,11 @@ export class LoginPage {
             return;
         }
 
-        this.auth.login({
-            nombre: this.loginForm.value.email!.split('@')[0],
-            email: this.loginForm.value.email!,
-        });
+        const { email, password } = this.loginForm.getRawValue();
 
-        this.router.navigate(['/checkout']);
+        this.auth.login(email!, password!).subscribe({
+            next: () => this.router.navigate(['/checkout']),
+            error: () => undefined, // el mensaje se muestra desde auth.error()
+        });
     }
 }
