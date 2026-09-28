@@ -19,7 +19,7 @@ export class ProductService {
         const offset = (pagina - 1) * tamanoPagina;
 
         let params = new HttpParams()
-            .set('select', '*,categories(name,slug)')
+            .set('select', '*,categories(id,name,slug)')
             .set('order', 'created_at.desc')
             .set('offset', offset)
             .set('limit', tamanoPagina);
@@ -42,6 +42,17 @@ export class ProductService {
                 total: this.parseTotal(respuesta.headers.get('Content-Range')),
             })),
         );
+    }
+
+    obtenerPorId(id: string): Observable<Product | null> {
+        const params = new HttpParams()
+            .set('id', `eq.${id}`)
+            .set('select', '*,categories(id,name,slug)')
+            .set('limit', '1');
+
+        return this.http
+            .get<Product[]>(this.endPoint, { params })
+            .pipe(map((respuesta) => respuesta[0] ?? null));
     }
 
     private parseTotal(contentRange: string | null): number {

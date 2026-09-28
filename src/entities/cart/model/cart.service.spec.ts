@@ -43,6 +43,20 @@ describe('CartService', () => {
         expect(service.items()[0].quantity).toBe(1);
     });
 
+    it('agrega varias unidades de un producto nuevo', () => {
+        service.addProduct(crearProducto({ id: 3 }), 4);
+
+        expect(service.items()).toHaveLength(1);
+        expect(service.items()[0].quantity).toBe(4);
+        expect(service.totalItems()).toBe(4);
+    });
+
+    it('ignora cantidades menores o iguales a cero', () => {
+        service.addProduct(crearProducto({ id: 3 }), 0);
+
+        expect(service.items()).toEqual([]);
+    });
+
     it('incrementa la cantidad si el producto ya existe', () => {
         const polo = crearProducto();
 
@@ -107,6 +121,12 @@ describe('CartService', () => {
     });
 
     it('abre y cierra el sidebar', () => {
+        expect(service.isSidebarOpen()).toBe(false);
+
+        service.openSidebar();
+        expect(service.isSidebarOpen()).toBe(true);
+
+        service.toggleSidebar();
         expect(service.isSidebarOpen()).toBe(false);
 
         service.toggleSidebar();

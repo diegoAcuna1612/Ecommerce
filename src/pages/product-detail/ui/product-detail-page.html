@@ -1,1 +1,112 @@
-<p>product-detail-page works!</p>
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+  <nav class="mb-8 flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
+    <a routerLink="/" class="transition-colors hover:text-ink">Inicio</a>
+
+    @if (producto.value()?.categories; as categoria) {
+      <span>/</span>
+      <a
+        [routerLink]="['/']"
+        [queryParams]="{ categoria: categoria.id }"
+        class="transition-colors hover:text-ink"
+      >
+        {{ categoria.name }}
+      </a>
+    }
+
+    <span>/</span>
+    <span class="max-w-[200px] truncate text-ink">
+      {{ producto.value()?.title ?? 'Producto' }}
+    </span>
+  </nav>
+
+  @if (producto.isLoading()) {
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div class="aspect-square w-full animate-pulse bg-surface-hover border border-line"></div>
+      <div class="flex flex-col gap-4">
+        <div class="h-4 w-24 animate-pulse bg-surface-hover"></div>
+        <div class="h-8 w-3/4 animate-pulse bg-surface-hover"></div>
+        <div class="h-6 w-32 animate-pulse bg-surface-hover"></div>
+        <div class="h-20 w-full animate-pulse bg-surface-hover"></div>
+        <div class="h-12 w-48 animate-pulse bg-surface-hover"></div>
+      </div>
+    </div>
+  } @else if (producto.error()) {
+    <div class="border border-line bg-surface px-6 py-16 text-center">
+      <p class="text-lg font-semibold text-ink">No se pudo cargar el producto</p>
+      <p class="mt-1 text-sm text-muted">Revisa tu conexión e inténtalo de nuevo.</p>
+      <a routerLink="/" class="btn-clean-secondary mt-6">Volver al catálogo</a>
+    </div>
+  } @else if (noEncontrado()) {
+    <div class="border border-line bg-surface px-6 py-16 text-center">
+      <p class="text-lg font-semibold text-ink">Producto no encontrado</p>
+      <p class="mt-1 text-sm text-muted">El producto que buscas no existe o ya no está disponible.</p>
+      <a routerLink="/" class="btn-clean-secondary mt-6">Volver al catálogo</a>
+    </div>
+  } @else if (producto.value(); as prod) {
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      <div class="relative card-clean overflow-hidden bg-surface-hover">
+        <img
+          [src]="prod.image_url"
+          [alt]="prod.title"
+          class="aspect-square w-full object-cover"
+        >
+
+        @if (prod.stock > 0) {
+          <span class="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            Stock: {{ prod.stock }}
+          </span>
+        } @else {
+          <span class="absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            Agotado
+          </span>
+        }
+      </div>
+
+      <div class="flex flex-col">
+        @if (prod.categories; as categoria) {
+          <span class="self-start border border-line px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted">
+            {{ categoria.name }}
+          </span>
+        }
+
+        <h1 class="mt-4 text-3xl font-extrabold leading-tight text-ink">{{ prod.title }}</h1>
+
+        <p class="mt-4 text-3xl font-black text-ink">S/ {{ prod.price.toFixed(2) }}</p>
+
+        <p class="mt-1 text-xs font-medium text-muted">
+          El precio incluye IGV (18%).
+        </p>
+
+        @if (prod.description) {
+          <p class="mt-6 text-sm leading-relaxed text-muted">{{ prod.description }}</p>
+        }
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <span class="text-xs font-semibold uppercase tracking-widest text-muted">Cantidad</span>
+          <app-quantity-selector
+            [formControl]="cantidad"
+            [min]="1"
+            [max]="prod.stock > 0 ? prod.stock : 1"
+          />
+        </div>
+
+        <button
+          type="button"
+          class="btn-clean mt-6 w-full sm:w-auto"
+          [disabled]="agotado()"
+          (click)="agregarAlCarrito()"
+        >
+          {{ agotado() ? 'Producto agotado' : 'Agregar al carrito' }}
+        </button>
+
+        <a routerLink="/" class="mt-4 text-xs font-semibold uppercase tracking-widest text-muted transition-colors hover:text-ink">
+          &larr; Seguir comprando
+        </a>
+      </div>
+
+    </div>
+  }
+
+</div>

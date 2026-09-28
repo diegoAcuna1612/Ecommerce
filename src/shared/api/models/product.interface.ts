@@ -7,6 +7,7 @@ export interface Product {
   image_url: string;
   category_id: number | string;
   categories?:{
+    id?: number | string;
     name:string;
     slug:string;
   }

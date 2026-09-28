@@ -36,22 +36,30 @@ export class CartService {
         this.isSidebarOpen.update((v) => !v);
     }
 
+    openSidebar() {
+        this.isSidebarOpen.set(true);
+    }
+
     closeSidebar() {
         this.isSidebarOpen.set(false);
     }
 
-    addProduct(product: Product) {
+    addProduct(product: Product, quantity = 1) {
+        if (quantity <= 0) {
+            return;
+        }
+
         this.state.update((currentItems) => {
             const existingItem = currentItems.find((item) => item.product.id === product.id);
 
             if (existingItem) {
                 return currentItems.map((item) =>
                     item.product.id === product.id
-                        ? { ...item, quantity: item.quantity + 1 }
+                        ? { ...item, quantity: item.quantity + quantity }
                         : item,
                 );
             }
-            return [...currentItems, { product, quantity: 1 }];
+            return [...currentItems, { product, quantity }];
         });
     }
 
